@@ -55,7 +55,8 @@ export default function Home() {
 
   // Socket.IO real-time alert connection
   useEffect(() => {
-    const socket = io("/telemetry", {
+    const socketUrl = import.meta.env.VITE_WS_URL || window.location.origin;
+    const socket = io(`${socketUrl}/telemetry`, {
       transports: ["websocket"],
       autoConnect: true,
     });
