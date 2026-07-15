@@ -59,7 +59,7 @@ export default function SettingsTab({ tenant, refreshInterval, setRefreshInterva
   }, [tenant]);
 
   return (
-    <div className="space-y-4 pb-4">
+    <div className="space-y-4 pb-4 grid grid-cols-1 lg:grid-cols-2 lg:gap-6 lg:space-y-0">
       <Card>
         <SectionLabel>TENANT INFO</SectionLabel>
         <div className="text-sm font-semibold">{tenant.name}</div>

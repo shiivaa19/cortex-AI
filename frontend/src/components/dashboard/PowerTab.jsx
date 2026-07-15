@@ -65,7 +65,7 @@ export default function PowerTab({ tenant, live }) {
 
   return (
     <div className="space-y-4 pb-4">
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <Card className="bg-amber-50 border-amber-100">
           <div className="text-[11px] text-amber-700 font-medium">
             AVG ACTIVE POWER
@@ -82,7 +82,25 @@ export default function PowerTab({ tenant, live }) {
             {hourly ? (parseFloat(avgKwh) * 1.02).toFixed(1) : "—"} kVA
           </div>
         </Card>
+        <Card className="bg-emerald-50 border-emerald-100">
+          <div className="text-[11px] text-emerald-700 font-medium">
+            POWER FACTOR
+          </div>
+          <div className="text-xl font-semibold text-emerald-800">
+            {pfNow}
+          </div>
+        </Card>
+        <Card className="bg-purple-50 border-purple-100">
+          <div className="text-[11px] text-purple-700 font-medium">
+            LOAD FACTOR
+          </div>
+          <div className="text-xl font-semibold text-purple-800">
+            {lfNow}%
+          </div>
+        </Card>
       </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
       <Card>
         <SectionLabel sub="kWh · energy per hour · Across today">
@@ -376,6 +394,7 @@ export default function PowerTab({ tenant, live }) {
           );
         })()}
       </Card>
+      </div>
     </div>
   );
 }

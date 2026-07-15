@@ -111,9 +111,76 @@ export default function Home() {
   if (!tenant) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50 flex justify-center">
-      <div className="w-full max-w-md bg-gray-50 min-h-screen relative pb-20">
-        <div className="sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-gray-100 px-4 py-3 flex items-center justify-between">
+    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row font-sans">
+      {/* Sidebar Navigation - Desktop only */}
+      <aside className="hidden md:flex md:w-64 md:flex-col bg-white border-r border-gray-200 min-h-screen sticky top-0">
+        <div className="p-6 border-b border-gray-100">
+          <div className="text-lg font-bold text-gray-900 flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+            Cortex AI
+          </div>
+          <div className="text-[10px] text-gray-400 font-semibold tracking-wider uppercase">Telemetry Platform</div>
+        </div>
+
+        {/* Tenant selector in sidebar */}
+        <div className="p-4 border-b border-gray-100">
+          <label className="text-[10px] text-gray-400 font-semibold block mb-1.5 uppercase tracking-wider">Select Site</label>
+          <select
+            value={tenantId}
+            onChange={(e) => switchTenant(e.target.value)}
+            className="w-full text-xs font-medium border border-gray-200 rounded-lg px-3 py-2 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:bg-white"
+          >
+            {tenants.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Desktop Tabs */}
+        <nav className="flex-1 p-4 space-y-1">
+          {TABS.map((t) => {
+            const Icon = t.icon;
+            const activeTab = tab === t.id;
+            return (
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                  activeTab
+                    ? "bg-emerald-50 text-emerald-600"
+                    : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                }`}
+              >
+                <Icon size={18} />
+                {t.label}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Live Feed Status */}
+        <div className="p-4 border-t border-gray-100 flex items-center justify-between">
+          <span className="text-xs text-gray-500">Live Telemetry</span>
+          {live ? (
+            <span className="text-[10px] bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-full border border-emerald-100 flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              Connected
+            </span>
+          ) : (
+            <span className="text-[10px] bg-amber-50 text-amber-600 px-2 py-0.5 rounded-full border border-amber-100 flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              Connecting
+            </span>
+          )}
+        </div>
+      </aside>
+
+      {/* Main Content wrapper */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Mobile Header - Mobile only */}
+        <header className="md:hidden sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-gray-100 px-4 py-3 flex items-center justify-between">
           <div>
             <div className="text-sm font-semibold text-gray-900">Cortex</div>
             <div className="text-[10px] text-gray-400">Industrial Intelligence Platform</div>
@@ -122,7 +189,7 @@ export default function Home() {
             {live ? (
               <span className="text-[9px] bg-emerald-50 text-emerald-600 px-2 py-1 rounded-full border border-emerald-100 flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                live feed
+                live
               </span>
             ) : (
               <span className="text-[9px] bg-amber-50 text-amber-600 px-2 py-1 rounded-full border border-amber-100 flex items-center gap-1">
@@ -142,9 +209,10 @@ export default function Home() {
               ))}
             </select>
           </div>
-        </div>
+        </header>
 
-        <div className="px-4 pt-4">
+        {/* Dynamic Content Area */}
+        <main className="flex-1 p-4 md:p-8 max-w-7xl w-full mx-auto pb-24 md:pb-8">
           {tab === "power" && <PowerTab tenant={tenant} live={live} />}
           {tab === "anomaly" && <AnomalyTab tenant={tenant} />}
           {tab === "billing" && <BillingTab tenant={tenant} />}
@@ -156,25 +224,29 @@ export default function Home() {
               setRefreshInterval={setRefreshInterval}
             />
           )}
-        </div>
+        </main>
 
-        <div className="fixed bottom-0 left-0 right-0 z-30 flex justify-center">
-          <div className="w-full max-w-md bg-white border-t border-gray-100 flex justify-around py-2">
-            {TABS.map((t) => {
-              const Icon = t.icon;
-              const activeTab = tab === t.id;
-              return (
-                <button key={t.id} onClick={() => setTab(t.id)} className="flex flex-col items-center gap-0.5 px-2 py-1">
-                  <Icon size={18} color={activeTab ? "#10b981" : "#9ca3af"} />
-                  <span className={`text-[9px] ${activeTab ? "text-emerald-500 font-medium" : "text-gray-400"}`}>
-                    {t.label}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        {/* Mobile Tab Navigation - Mobile only */}
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-gray-100 flex justify-around py-2">
+          {TABS.map((t) => {
+            const Icon = t.icon;
+            const activeTab = tab === t.id;
+            return (
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                className="flex flex-col items-center gap-0.5 px-2 py-1 animate-fade-in"
+              >
+                <Icon size={18} color={activeTab ? "#10b981" : "#9ca3af"} />
+                <span className={`text-[9px] ${activeTab ? "text-emerald-500 font-medium" : "text-gray-400"}`}>
+                  {t.label}
+                </span>
+              </button>
+            );
+          })}
+        </nav>
 
+        {/* Chatbot trigger and panel (works responsively on both) */}
         <ChatPanel tenant={tenant} open={chatOpen} setOpen={setChatOpen} />
       </div>
     </div>
