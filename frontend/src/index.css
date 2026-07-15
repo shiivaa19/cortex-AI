@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+.bg-custom-theme {
+  background-image: linear-gradient(rgba(249, 250, 251, 0.88), rgba(249, 250, 251, 0.88)), url('/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}

@@ -111,9 +111,9 @@ export default function Home() {
   if (!tenant) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row font-sans">
+    <div className="min-h-screen bg-custom-theme flex flex-col md:flex-row font-sans">
       {/* Sidebar Navigation - Desktop only */}
-      <aside className="hidden md:flex md:w-64 md:flex-col bg-white border-r border-gray-200 min-h-screen sticky top-0">
+      <aside className="hidden md:flex md:w-64 md:flex-col bg-white/80 backdrop-blur-md border-r border-gray-200/50 min-h-screen sticky top-0">
         <div className="p-6 border-b border-gray-100">
           <div className="text-lg font-bold text-gray-900 flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -180,7 +180,7 @@ export default function Home() {
       {/* Main Content wrapper */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Mobile Header - Mobile only */}
-        <header className="md:hidden sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-gray-100 px-4 py-3 flex items-center justify-between">
+        <header className="md:hidden sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-gray-100/50 px-4 py-3 flex items-center justify-between">
           <div>
             <div className="text-sm font-semibold text-gray-900">Cortex</div>
             <div className="text-[10px] text-gray-400">Industrial Intelligence Platform</div>
@@ -227,7 +227,7 @@ export default function Home() {
         </main>
 
         {/* Mobile Tab Navigation - Mobile only */}
-        <nav className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-gray-100 flex justify-around py-2">
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/80 backdrop-blur-md border-t border-gray-100/50 flex justify-around py-2">
           {TABS.map((t) => {
             const Icon = t.icon;
             const activeTab = tab === t.id;
