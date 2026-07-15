@@ -8,5 +8,19 @@
       "root": "backend",
       "framework": "python"
     }
-  }
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "backend"
+    },
+    {
+      "src": "/socket.io/(.*)",
+      "dest": "backend"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend"
+    }
+  ]
 }
