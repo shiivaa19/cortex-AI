@@ -77,11 +77,11 @@ export default function SettingsTab({ tenant, refreshInterval, setRefreshInterva
           <select
             value={refreshInterval}
             onChange={(e) => setRefreshInterval(Number(e.target.value))}
-            className="text-sm border border-white/10 rounded-lg px-2 py-1 bg-slate-900 text-white focus:outline-none"
+            className="text-sm border border-gray-200 rounded-lg px-2 py-1"
           >
-            <option value={5} className="bg-slate-950 text-white">5 s</option>
-            <option value={30} className="bg-slate-950 text-white">30 s</option>
-            <option value={300} className="bg-slate-950 text-white">300 s</option>
+            <option value={5}>5 s</option>
+            <option value={30}>30 s</option>
+            <option value={300}>300 s</option>
           </select>
         </div>
       </Card>
@@ -91,21 +91,21 @@ export default function SettingsTab({ tenant, refreshInterval, setRefreshInterva
         
         <div className="mt-2 space-y-3">
           <div>
-            <label className="text-[10px] text-slate-400 block mb-1">PROVIDER</label>
+            <label className="text-[10px] text-gray-400 block mb-1">PROVIDER</label>
             <select
               value={provider}
               onChange={(e) => setProvider(e.target.value)}
-              className="w-full text-xs border border-white/10 rounded-lg px-2 py-1.5 bg-slate-900 text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+              className="w-full text-xs border border-gray-200 rounded-lg px-2 py-1.5 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:bg-white"
             >
-              <option value="gemini" className="bg-slate-950 text-white">Google Gemini AI</option>
-              <option value="openai" className="bg-slate-950 text-white">OpenAI GPT</option>
-              <option value="grok" className="bg-slate-950 text-white">xAI Grok</option>
-              <option value="groq" className="bg-slate-950 text-white">Groq LPU</option>
+              <option value="gemini">Google Gemini AI</option>
+              <option value="openai">OpenAI GPT</option>
+              <option value="grok">xAI Grok</option>
+              <option value="groq">Groq LPU</option>
             </select>
           </div>
 
           <div>
-            <label className="text-[10px] text-slate-400 block mb-1">
+            <label className="text-[10px] text-gray-400 block mb-1">
               {provider.toUpperCase()} API KEY
             </label>
             <input
@@ -115,12 +115,12 @@ export default function SettingsTab({ tenant, refreshInterval, setRefreshInterva
               placeholder={
                 provider === "gemini" ? "AIzaSy..." : provider === "openai" ? "sk-proj-..." : provider === "grok" ? "xai-..." : "gsk_..."
               }
-              className="w-full text-xs border border-white/10 rounded-lg px-3 py-2 bg-slate-900 text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+              className="w-full text-xs border border-gray-200 rounded-lg px-3 py-2 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:bg-white"
             />
           </div>
         </div>
 
-        <div className="text-[10px] text-slate-400 mt-2">
+        <div className="text-[10px] text-gray-400 mt-2">
           Grounded directly in cortex_mock_data.csv. Stored locally in your browser.
         </div>
       </Card>
@@ -128,23 +128,23 @@ export default function SettingsTab({ tenant, refreshInterval, setRefreshInterva
       <Card>
         <SectionLabel sub="Raspberry Pi Gateway">EDGE NODE · RASPBERRY PI HEALTH</SectionLabel>
         <div className="grid grid-cols-3 gap-2 my-2">
-          <div className="bg-slate-800/40 border border-white/5 rounded-xl p-2 text-center">
-            <Thermometer size={14} className="mx-auto text-slate-400" />
-            <div className="text-sm font-semibold text-white mt-1">51°C</div>
+          <div className="bg-gray-50 rounded-xl p-2 text-center">
+            <Thermometer size={14} className="mx-auto text-gray-400" />
+            <div className="text-sm font-semibold mt-1">51°C</div>
           </div>
-          <div className="bg-slate-800/40 border border-white/5 rounded-xl p-2 text-center">
-            <MemoryStick size={14} className="mx-auto text-slate-400" />
-            <div className="text-sm font-semibold text-white mt-1">12%</div>
+          <div className="bg-gray-50 rounded-xl p-2 text-center">
+            <MemoryStick size={14} className="mx-auto text-gray-400" />
+            <div className="text-sm font-semibold mt-1">12%</div>
           </div>
-          <div className="bg-slate-800/40 border border-white/5 rounded-xl p-2 text-center">
-            <Cpu size={14} className="mx-auto text-slate-400" />
-            <div className="text-sm font-semibold text-white mt-1">0%</div>
+          <div className="bg-gray-50 rounded-xl p-2 text-center">
+            <Cpu size={14} className="mx-auto text-gray-400" />
+            <div className="text-sm font-semibold mt-1">0%</div>
           </div>
         </div>
-        <div className="text-[10px] text-slate-400 mb-1">PI TEMPERATURE · LAST 24H</div>
+        <div className="text-[10px] text-gray-400 mb-1">PI TEMPERATURE · LAST 24H</div>
         <ResponsiveContainer width="100%" height={90}>
           <AreaChart data={spark}>
-            <Area type="monotone" dataKey="temp" stroke={COLORS.good} fill="rgba(16, 185, 129, 0.1)" strokeWidth={1.5} />
+            <Area type="monotone" dataKey="temp" stroke={COLORS.good} fill="#d1fae5" strokeWidth={1.5} />
             <ReferenceLine y={65} stroke={COLORS.warn} strokeDasharray="3 3" />
             <ReferenceLine y={75} stroke={COLORS.bad} strokeDasharray="3 3" />
           </AreaChart>

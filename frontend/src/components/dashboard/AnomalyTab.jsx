@@ -11,9 +11,9 @@ export default function AnomalyTab({ tenant }) {
   const { data: list, loading, error } = useApi(() => fetchAnomalies(tenant.id), [tenant.id]);
 
   const sevColor = {
-    high: "bg-red-500/10 text-red-400 border-red-500/25",
-    medium: "bg-amber-500/10 text-amber-400 border-amber-500/25",
-    low: "bg-emerald-500/10 text-emerald-400 border-emerald-500/25",
+    high: "bg-red-50 text-red-600 border-red-200",
+    medium: "bg-amber-50 text-amber-600 border-amber-200",
+    low: "bg-emerald-50 text-emerald-600 border-emerald-200",
   };
 
   if (loading) {

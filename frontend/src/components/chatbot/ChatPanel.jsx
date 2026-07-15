@@ -66,39 +66,39 @@ export default function ChatPanel({ tenant, open, setOpen }) {
     <>
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-5 left-5 z-40 w-14 h-14 rounded-full bg-emerald-500 text-slate-950 shadow-lg flex items-center justify-center hover:bg-emerald-400 transition-colors"
+        className="fixed bottom-5 left-5 z-40 w-14 h-14 rounded-full bg-gray-900 text-white shadow-lg flex items-center justify-center hover:bg-gray-800 transition-colors"
         aria-label="Open Cortex Copilot chat"
       >
         {open ? <X size={22} /> : <MessageCircle size={22} />}
       </button>
 
       {open && (
-        <div className="fixed bottom-24 left-5 z-40 w-[340px] max-w-[90vw] h-[440px] bg-slate-900/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/10 flex flex-col overflow-hidden text-white animate-fade-in">
-          <div className="bg-slate-950/90 border-b border-white/5 px-4 py-3 flex items-center gap-2">
+        <div className="fixed bottom-24 left-5 z-40 w-[340px] max-w-[90vw] h-[440px] bg-white rounded-2xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden">
+          <div className="bg-gray-900 text-white px-4 py-3 flex items-center gap-2">
             <div className="w-7 h-7 rounded-full bg-emerald-400 flex items-center justify-center">
-              <Zap size={14} className="text-slate-950" />
+              <Zap size={14} className="text-gray-900" />
             </div>
             <div>
-              <div className="text-sm font-semibold leading-none text-white">Cortex Copilot</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">{tenant.name} · grounded to your data</div>
+              <div className="text-sm font-semibold leading-none">Cortex Copilot</div>
+              <div className="text-[10px] text-gray-300 mt-0.5">{tenant.name} · grounded to your data</div>
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto px-3 py-3 space-y-3 bg-slate-950/40">
+          <div className="flex-1 overflow-y-auto px-3 py-3 space-y-3 bg-gray-50">
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div
                   className={`max-w-[85%] rounded-2xl px-3 py-2 text-xs leading-relaxed ${
                     m.role === "user"
-                      ? "bg-emerald-500/20 text-emerald-200 border border-emerald-500/10 rounded-br-sm"
-                      : "bg-slate-900 border border-white/10 text-slate-100 rounded-bl-sm shadow-sm"
+                      ? "bg-gray-900 text-white rounded-br-sm"
+                      : "bg-white border border-gray-100 text-gray-700 rounded-bl-sm shadow-sm"
                   }`}
                 >
                   {m.typing ? (
                     <span className="inline-flex gap-1 py-1">
-                      <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                      <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                      <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                     </span>
                   ) : (
                     m.text
@@ -106,7 +106,7 @@ export default function ChatPanel({ tenant, open, setOpen }) {
                   {m.cites?.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-2">
                       {m.cites.map((c, j) => (
-                        <span key={j} className="text-[9px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/10">
+                        <span key={j} className="text-[9px] bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-full border border-emerald-100">
                           {c}
                         </span>
                       ))}
@@ -123,24 +123,24 @@ export default function ChatPanel({ tenant, open, setOpen }) {
               <button
                 key={s}
                 onClick={() => send(s)}
-                className="text-[10px] bg-white/5 hover:bg-white/10 border border-white/5 rounded-full px-2 py-1 text-slate-300"
+                className="text-[10px] bg-gray-100 hover:bg-gray-200 rounded-full px-2 py-1 text-gray-600"
               >
                 {s}
               </button>
             ))}
           </div>
 
-          <div className="p-2 border-t border-white/5 flex items-center gap-1 bg-slate-950/20">
+          <div className="p-2 border-t border-gray-100 flex items-center gap-1">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && send(input)}
               placeholder="Ask about your energy data…"
-              className="flex-1 text-xs px-3 py-2 rounded-full bg-slate-800/80 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+              className="flex-1 text-xs px-3 py-2 rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900/10"
             />
             <button
               onClick={() => send(input)}
-              className="w-8 h-8 rounded-full bg-emerald-500 text-slate-950 hover:bg-emerald-400 flex items-center justify-center flex-shrink-0 transition-colors"
+              className="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center flex-shrink-0"
             >
               <Send size={13} />
             </button>
