@@ -1,0 +1,26 @@
+# Node dependencies
+**/node_modules/
+**/dist/
+
+# Python dependencies
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+
+# OS files
+desktop.ini
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# Local cache/logs
+*.log
+.gemini/
