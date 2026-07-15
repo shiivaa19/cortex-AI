@@ -66,35 +66,35 @@ export default function PowerTab({ tenant, live }) {
   return (
     <div className="space-y-4 pb-4">
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <Card className="bg-amber-50 border-amber-100">
-          <div className="text-[11px] text-amber-700 font-medium">
+        <Card className="bg-amber-500/10 border-amber-500/25">
+          <div className="text-[11px] text-amber-400 font-semibold tracking-wider">
             AVG ACTIVE POWER
           </div>
-          <div className="text-xl font-semibold text-amber-800">
+          <div className="text-xl font-bold text-amber-200 mt-1">
             {avgKwh} kW
           </div>
         </Card>
-        <Card className="bg-blue-50 border-blue-100">
-          <div className="text-[11px] text-blue-700 font-medium">
+        <Card className="bg-blue-500/10 border-blue-500/25">
+          <div className="text-[11px] text-blue-400 font-semibold tracking-wider">
             AVG APPARENT POWER
           </div>
-          <div className="text-xl font-semibold text-blue-800">
+          <div className="text-xl font-bold text-blue-200 mt-1">
             {hourly ? (parseFloat(avgKwh) * 1.02).toFixed(1) : "—"} kVA
           </div>
         </Card>
-        <Card className="bg-emerald-50 border-emerald-100">
-          <div className="text-[11px] text-emerald-700 font-medium">
+        <Card className="bg-emerald-500/10 border-emerald-500/25">
+          <div className="text-[11px] text-emerald-400 font-semibold tracking-wider">
             POWER FACTOR
           </div>
-          <div className="text-xl font-semibold text-emerald-800">
+          <div className="text-xl font-bold text-emerald-200 mt-1">
             {pfNow}
           </div>
         </Card>
-        <Card className="bg-purple-50 border-purple-100">
-          <div className="text-[11px] text-purple-700 font-medium">
+        <Card className="bg-purple-500/10 border-purple-500/25">
+          <div className="text-[11px] text-purple-400 font-semibold tracking-wider">
             LOAD FACTOR
           </div>
-          <div className="text-xl font-semibold text-purple-800">
+          <div className="text-xl font-bold text-purple-200 mt-1">
             {lfNow}%
           </div>
         </Card>
@@ -235,15 +235,15 @@ export default function PowerTab({ tenant, live }) {
               </LineChart>
             </ResponsiveContainer>
             <div className="grid grid-cols-2 gap-3 mt-2">
-              <div className="bg-amber-50 rounded-xl p-2 text-center">
-                <div className="text-[10px] text-amber-700">AVG ACTIVE POWER</div>
-                <div className="text-sm font-semibold text-amber-800">
+              <div className="bg-amber-500/10 border border-amber-500/10 rounded-xl p-2 text-center">
+                <div className="text-[10px] text-amber-400 font-medium">AVG ACTIVE POWER</div>
+                <div className="text-sm font-semibold text-amber-200 mt-0.5">
                   {hourly ? (parseFloat(avgKwh) * 0.98).toFixed(1) : "—"} kW
                 </div>
               </div>
-              <div className="bg-blue-50 rounded-xl p-2 text-center">
-                <div className="text-[10px] text-blue-700">AVG APPARENT POWER</div>
-                <div className="text-sm font-semibold text-blue-800">
+              <div className="bg-blue-500/10 border border-blue-500/10 rounded-xl p-2 text-center">
+                <div className="text-[10px] text-blue-400 font-medium">AVG APPARENT POWER</div>
+                <div className="text-sm font-semibold text-blue-200 mt-0.5">
                   {hourly ? (parseFloat(avgKwh) * 1.02).toFixed(1) : "—"} kVA
                 </div>
               </div>
