@@ -3,9 +3,21 @@
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build"
+    },
+    {
+      "src": "backend/main.py",
+      "use": "@vercel/python"
     }
   ],
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "backend/main.py"
+    },
+    {
+      "src": "/socket.io/(.*)",
+      "dest": "backend/main.py"
+    },
     {
       "src": "/(.*)",
       "dest": "frontend/$1"

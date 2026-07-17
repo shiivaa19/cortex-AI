@@ -125,3 +125,6 @@ async def emit_alerts_loop():
 @app.on_event("startup")
 async def start_background_tasks():
     sio.start_background_task(emit_alerts_loop)
+
+# Export the combined ASGI app as 'app' for Vercel serverless environment compatibility
+app = socket_app

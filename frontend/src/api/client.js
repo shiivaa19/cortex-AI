@@ -1,4 +1,5 @@
 import axios from "axios";
+import { answerQuestion as answerQuestionLocal } from "../components/chatbot/answerQuestion";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "/api",
@@ -164,8 +165,7 @@ export async function sendChatMessage(tenantId, question) {
     return data;
   } catch (err) {
     console.warn("[API Connection Error] Chat API failed. Processing locally via offline fallback rules.");
-    const { default: answerQuestionLocal } = await import("../components/chatbot/answerQuestion");
-    const replyText = answerQuestionLocal(question);
+    const replyText = await answerQuestionLocal(question);
     return {
       text: replyText,
       cites: [
