@@ -164,11 +164,12 @@ export async function sendChatMessage(tenantId, question) {
     const { data } = await api.post(`/chat/${tenantId}`, { question }, { headers });
     return data;
   } catch (err) {
-    console.warn("[API Connection Error] Chat API failed. Processing locally via offline fallback rules.");
-    const replyText = await answerQuestionLocal(question);
+    console.warn("[API Connection Error] Chat API failed. Processing locally via offline fallback rules.", err);
+    const result = await answerQuestionLocal(question);
     return {
-      text: replyText,
+      text: result.text,
       cites: [
+        ...(result.cites || []),
         "Local offline query engine",
         "cortex_mock_data.xlsx.ods (Local copy)",
         "Offline Fallback Mode (Phone / Offline)"
