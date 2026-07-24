@@ -271,19 +271,44 @@ def call_llm(provider: str, api_key: str, system: str, user_content: str) -> str
     raise ValueError(f"Unknown provider: {provider}")
 
 def answer_question(question: str, tenant: dict, user_api_key: str = None, user_provider: str = None) -> dict:
+    # Clean incoming headers to handle empty strings/JS representations of null/undefined
+    if user_api_key in (None, "", "null", "undefined"):
+        user_api_key = None
+    if user_provider in (None, "", "null", "undefined"):
+        user_provider = None
+
     provider = user_provider or os.getenv("CORTEX_AI_PROVIDER") or "gemini"
     api_key = user_api_key
     
     # Fallback env keys if not provided in headers
     if not api_key:
-        if provider == "gemini":
-            api_key = os.getenv("GEMINI_API_KEY")
-        elif provider == "openai":
-            api_key = os.getenv("OPENAI_API_KEY")
-        elif provider == "grok":
-            api_key = os.getenv("GROK_API_KEY") or os.getenv("XAI_API_KEY")
-        elif provider == "groq":
-            api_key = os.getenv("GROQ_API_KEY")
+        env_gemini = os.getenv("GEMINI_API_KEY")
+        env_groq = os.getenv("GROQ_API_KEY")
+        env_openai = os.getenv("OPENAI_API_KEY")
+        env_grok = os.getenv("GROK_API_KEY") or os.getenv("XAI_API_KEY")
+
+        if provider == "gemini" and env_gemini:
+            api_key = env_gemini
+        elif provider == "groq" and env_groq:
+            api_key = env_groq
+        elif provider == "openai" and env_openai:
+            api_key = env_openai
+        elif provider == "grok" and env_grok:
+            api_key = env_grok
+        else:
+            # If the selected provider has no key, try any available key in env
+            if env_groq:
+                provider = "groq"
+                api_key = env_groq
+            elif env_gemini:
+                provider = "gemini"
+                api_key = env_gemini
+            elif env_openai:
+                provider = "openai"
+                api_key = env_openai
+            elif env_grok:
+                provider = "grok"
+                api_key = env_grok
 
     if not api_key or not provider:
         return local_fallback_query(question, tenant)
