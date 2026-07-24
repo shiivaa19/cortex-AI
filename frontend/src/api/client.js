@@ -1,8 +1,13 @@
 import axios from "axios";
 import { answerQuestion as answerQuestionLocal } from "../components/chatbot/answerQuestion";
 
+let baseUrl = import.meta.env.VITE_API_URL || "/api";
+if (import.meta.env.PROD && (baseUrl.includes("127.0.0.1") || baseUrl.includes("localhost"))) {
+  baseUrl = "/api";
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "/api",
+  baseURL: baseUrl,
   timeout: 15000,
 });
 

@@ -55,7 +55,10 @@ export default function Home() {
 
   // Socket.IO real-time alert connection
   useEffect(() => {
-    const socketUrl = import.meta.env.VITE_WS_URL || window.location.origin;
+    let socketUrl = import.meta.env.VITE_WS_URL || window.location.origin;
+    if (import.meta.env.PROD && (socketUrl.includes("127.0.0.1") || socketUrl.includes("localhost"))) {
+      socketUrl = window.location.origin;
+    }
     const socket = io(`${socketUrl}/telemetry`, {
       transports: ["websocket"],
       autoConnect: true,
